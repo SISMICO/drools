@@ -1,0 +1,18 @@
+---
+version: '2'
+services:
+  business-central-wb:
+    image: jboss/drools-workbench-showcase:latest
+    hostname: business-central-wb
+    container_name: business-central-wb
+    ports:
+      - "8080:8080"
+      - "8001:8001"
+  kie-server:
+    image: jboss/kie-server-showcase:latest
+    hostname: kie-server
+    container_name: kie-server
+    ports:
+      - "8180:8080"
+    links:
+      - business-central-wb:kie-server
