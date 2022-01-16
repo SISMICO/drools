@@ -1,10 +1,10 @@
 ---
 version: '2'
 services:
-  business-central-wb:
+  drools-workbench:
     image: jboss/drools-workbench-showcase:latest
-    hostname: business-central-wb
-    container_name: business-central-wb
+    hostname: drools-workbench
+    container_name: drools-workbench
     ports:
       - "8080:8080"
       - "8001:8001"
@@ -12,7 +12,10 @@ services:
     image: jboss/kie-server-showcase:latest
     hostname: kie-server
     container_name: kie-server
+    environment:
+      - KIE_SERVER_LOCATION=http://kie-server:8080/kie-server/services/rest/server
+      - KIE_SERVER_CONTROLLER=http://drools-workbench:8080/business-central/rest/controller
     ports:
       - "8180:8080"
     links:
-      - business-central-wb:kie-server
+      - "drools-workbench:kie-wb"
